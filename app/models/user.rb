@@ -1,6 +1,9 @@
 class User < ApplicationRecord
+  extend FriendlyId
+  friendly_id :username, use: :slugged
   has_secure_password
   before_create :set_default_role
+  before_validation :downcase_user
   mount_uploader :avatar, AvatarUploader
   attr_accessor :current_password
 
@@ -26,9 +29,18 @@ class User < ApplicationRecord
       errors.add(:current_password, "is incorrect.")
     end
   end
+  
 
   def validate_password?
     !password.blank?
   end
+  
+  def downcase_user
+    self.username = self.username.downcase
+    self.email = self.email.downcase
+  end
 
+  def should_generate_new_friendly_id?
+    username_changed?
+  end
 end

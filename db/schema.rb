@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_22_080020) do
+ActiveRecord::Schema.define(version: 2018_08_23_183125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
@@ -24,6 +36,7 @@ ActiveRecord::Schema.define(version: 2018_08_22_080020) do
     t.datetime "updated_at", null: false
     t.integer "role", default: 1
     t.datetime "last_login"
+    t.string "slug"
     t.index ["email"], name: "index_users_on_email"
   end
 
