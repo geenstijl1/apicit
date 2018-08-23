@@ -10,7 +10,7 @@ class User < ApplicationRecord
   validates_length_of       :password, maximum: 72, minimum: 8, allow_nil: true, allow_blank: false
   validates_presence_of :password_confirmation, if: :password_digest_changed?
 
-  enum role: [:admin, :user, :supervisor]
+  enum role: [:admin, :user]
 
   private
 
