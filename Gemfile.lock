@@ -62,6 +62,8 @@ GEM
       activesupport
     concurrent-ruby (1.0.5)
     crass (1.0.4)
+    email_validator (1.6.0)
+      activemodel
     erubi (1.7.1)
     ffi (1.9.25)
     globalid (0.4.1)
@@ -164,6 +166,7 @@ DEPENDENCIES
   byebug
   cancancan (~> 2.0)
   carrierwave
+  email_validator
   jwt
   knock
   listen (>= 3.0.5, < 3.2)
