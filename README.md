@@ -10,6 +10,10 @@
 - Versionamiento mediante Concerns en routing
 - Prevención de requests masivas mediante la gema rack-attack
 
+### Usuario Admin por defecto
+- email: admin@domain.com
+- password: admin123
+
 ### Endpoints
 - Registro 
 ```bash
@@ -33,14 +37,19 @@ v1/users/USER_ID
 ```
 ### Ejemplos
 
-- Registro de usuario (devuelve token)
+- Registro de usuario (devuelve token asi evitar enviar 2 request para obtener token al registrarse)
 ```bash
 curl -H 'Content-Type: application/json' -d '{"user": {"email": "emaildomain.com","password": "password","password_confirmation":"password", "username":"user_example"}}' localhost:3000/api/v1/sign_up
 ```
 
-- Autenticación de usuario
+- Autenticación de usuario (devuelve token)
 ```bash
 curl -H 'Content-Type: application/json' -d '{"auth": {"email": "email@domain.com","password": "password"}}' localhost:3000/api/v1/sign_in
+```
+
+- Usuario actual (devuelve token mas user_id)
+```bash
+curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/api/v1/auth
 ```
 
 - Subir/Editar avatar usuario
@@ -67,11 +76,6 @@ curl -X DELETE -H 'Content-Type: application/json' -H 'Authorization: JWT' local
 curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/api/v1/users/USER_ID
 ```
 
-- Usuario actual
-```bash
-curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/api/v1/auth
-```
-
  - Listar usuarios
  - Solo el usuario con rol "admin" puede modificar/eliminar a otros usuarios además de listarlos.
  ```bash
@@ -83,5 +87,6 @@ curl -H 'Content-Type: application/json' -H 'Authorization: JWT' localhost:3000/
 bundle install
 rails db:create
 rails db:migrate
+rails db:seed
 rails server
 ```
