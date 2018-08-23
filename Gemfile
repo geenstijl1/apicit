@@ -21,6 +21,7 @@ gem 'knock'
 gem 'jwt'
 gem 'cancancan', '~> 2.0'
 gem 'carrierwave'
+gem 'rack-attack'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
