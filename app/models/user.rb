@@ -36,8 +36,8 @@ class User < ApplicationRecord
   end
   
   def downcase_user
-    self.username = self.username.downcase
-    self.email = self.email.downcase
+    self.username = self.username.downcase if self.username?
+    self.email = self.email.downcase if self.email?
   end
 
   def should_generate_new_friendly_id?
