@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :complains
   extend FriendlyId
   friendly_id :username, use: :slugged
   has_secure_password
@@ -7,10 +8,10 @@ class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
   attr_accessor :current_password
 
-  validates :username, presence: true, uniqueness: true, length:  {in: 3..12}
+  validates :username, presence: true, length:  {in: 3..12}, format: {with: /(.*)/}
   validates :email, email: true
   validates :email, presence: true, uniqueness: true
-  validates_length_of       :password, maximum: 72, minimum: 8, allow_nil: true, allow_blank: false
+  validates_length_of       :password, maximum: 72, minimum: 6, allow_nil: true, allow_blank: false
   validates_presence_of :password_confirmation, if: :password_digest_changed?
 
   enum role: [:admin, :user]

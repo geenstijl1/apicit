@@ -4,6 +4,8 @@ class Api::V1::Admin::DashboardController < ApplicationController
 
   def index
     users = User.where.not(role: "admin")
+    #render json: complains
     render json: users
+    #render json: complains
   end
 end

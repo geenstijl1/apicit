@@ -5,6 +5,22 @@ class Api::V1::UserTokenController < Knock::AuthTokenController
 
   # excepcion email-password al logearse
   def bad_request
-    render json: { status: 401, msg: "Invalid email address or password" }
+    render json: [ status: 401,
+                   msg: "Invalid email address or password" 
+    ]
   end
+
+  def create
+    @user = User.find_by(email: params[:auth][:email])
+    data = {username: @user.username, role: @user.role}
+    if @user 
+      render json: [
+        auth_token.token,
+        data
+      ] 
+    else
+      bad_request
+    end
+  end
+
 end
